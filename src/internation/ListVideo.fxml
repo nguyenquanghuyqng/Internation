@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: #CCFF99;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="internation.controller.ListVideoController">
    <children>
-      <ImageView fx:id="video1" fitHeight="150.0" fitWidth="200.0" layoutX="33.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="video2" fitHeight="150.0" fitWidth="200.0" layoutX="33.0" layoutY="186.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="video3" fitHeight="150.0" fitWidth="200.0" layoutX="350.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="video1" fitHeight="150.0" fitWidth="200.0" layoutX="33.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" style="color: #ff0;" />
+      <ImageView fx:id="video2" fitHeight="150.0" fitWidth="200.0" layoutX="33.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="video3" fitHeight="150.0" fitWidth="200.0" layoutX="33.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="content1" layoutX="261.0" layoutY="60.0" onMouseClicked="#ForwardVideo" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello Huy">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text fx:id="content2" layoutX="261.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello Huy">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text fx:id="content3" layoutX="261.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello Huy">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text fx:id="descontent1" layoutX="261.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="descontent2" layoutX="261.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="descontent3" layoutX="261.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
    </children>
 </Pane>

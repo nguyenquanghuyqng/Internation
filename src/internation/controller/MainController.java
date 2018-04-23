@@ -2,10 +2,13 @@ package internation.controller;
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
+import internation.dao.GetSub;
+import internation.model.Sub;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -18,13 +21,23 @@ public class MainController implements Initializable {
 	@FXML
 	private MediaView mv;
 	@FXML
-	private ListView sub;
+	private ListView listsub;
 	private MediaPlayer mp;
 	private Media me;
 	private Slider slider;
 //	final VBox vbox = new VBox();
+	
+	public static final ObservableList subtime = 
+	        FXCollections.observableArrayList();
+	    public static final ObservableList sub = 
+	        FXCollections.observableArrayList();
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		List<Sub> lsubtime = GetSub.GetListTime(1);
+		List<Sub> lsubtsub = GetSub.GetListSub(1);
+		
 		// Lấy file path của video
 		String path = new File("src/media/huy.mp4").getAbsolutePath();
 		me = new Media(new File(path).toURI().toString());
@@ -36,7 +49,6 @@ public class MainController implements Initializable {
 //		DoubleProperty height = mv.fitHeightProperty();
 //		width.bind(Bindings.selectDouble(mv.sceneProperty(), "width"));
 //		height.bind(Bindings.selectDouble(mv.sceneProperty(), "height"));
-		
 		
 		
 		
@@ -54,6 +66,12 @@ public class MainController implements Initializable {
 //				vbox.setTranslateY(h-100);
 			}
 		});
+		
+		System.out.println("Start show sub");
+		for (Sub s : lsubtsub) {
+			sub.add(s.getContent());
+		}
+		listsub.setItems(sub);
 		
 	}
 
