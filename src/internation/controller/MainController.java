@@ -26,7 +26,7 @@ public class MainController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// Lấy file path của video
-		String path = new File("src/media/Video3.mp4").getAbsolutePath();
+		String path = new File("src/media/huy.mp4").getAbsolutePath();
 		me = new Media(new File(path).toURI().toString());
 		mp = new MediaPlayer(me);
 		mv.setMediaPlayer(mp);
