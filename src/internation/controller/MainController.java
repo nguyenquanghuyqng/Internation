@@ -21,7 +21,7 @@ public class MainController implements Initializable {
 	@FXML
 	private MediaView mv;
 	@FXML
-	private ListView listsub;
+	private ListView listsub;	
 	private MediaPlayer mp;
 	private Media me;
 	private Slider slider;
@@ -35,8 +35,8 @@ public class MainController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		List<Sub> lsubtime = GetSub.GetListTime(1);
-		List<Sub> lsubtsub = GetSub.GetListSub(1);
+		List<Sub> lsubtime = GetSub.GetListTime(1);	
+		List<Sub> lsubtsub = GetSub.GetListSub(1); 	
 		
 		// Lấy file path của video
 		String path = new File("src/media/huy.mp4").getAbsolutePath();
@@ -72,6 +72,11 @@ public class MainController implements Initializable {
 			sub.add(s.getContent());
 		}
 		listsub.setItems(sub);
+		
+		
+		//huy
+			System.out.println("Huy");
+		//Huy
 		
 	}
 
