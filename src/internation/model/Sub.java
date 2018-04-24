@@ -3,6 +3,8 @@ package internation.model;
 
 import java.sql.Time;
 
+import javafx.collections.ObservableList;
+
 public class Sub {
 
 	private int id;

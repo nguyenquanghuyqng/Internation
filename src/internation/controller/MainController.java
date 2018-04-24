@@ -5,15 +5,18 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.text.View;
+
 import internation.dao.GetSub;
 import internation.model.Sub;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -21,20 +24,19 @@ import javafx.scene.media.MediaView;
 public class MainController implements Initializable {
 	@FXML
 	private MediaView mv;
-	@FXML
-	private ListView listsub;	
 	private MediaPlayer mp;
 	private Media me;
 	private Slider slider;
 	@FXML
-	private TableView tableview;
-//	final VBox vbox = new VBox();
+	private TableView<Sub> tableview = new TableView<Sub>();
 	
 	public static final ObservableList subtime = 
 	        FXCollections.observableArrayList();
-	    public static final ObservableList sub = 
+	    public static final ObservableList<Sub> sub = 
 	        FXCollections.observableArrayList();
-	
+	        
+//	    private final ObservableList<Video> data =
+//	            FXCollections.observableArrayList();
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -63,12 +65,28 @@ public class MainController implements Initializable {
 			}
 		});
 		
-		System.out.println("Start show sub");
-		for (Sub s : lsubtsub) {
-			sub.add(s.getContent());
-		}
-		listsub.setItems(sub);
+//		System.out.println("Start show sub");
+//		for (Sub s : lsubtsub) {
+//			tableview.setItems(lsubtsub);
+//		}
+//		listsub.setItems(sub);
 		
+		TableColumn firstNameCol = new TableColumn("First Name");
+        firstNameCol.setMinWidth(10);
+        firstNameCol.setCellValueFactory(
+                new PropertyValueFactory<Sub, String>("firstName"));
+ 
+        TableColumn lastNameCol = new TableColumn("Last Name");
+        lastNameCol.setMinWidth(220);
+        lastNameCol.setCellValueFactory(
+                new PropertyValueFactory<Sub, String>("lastName"));
+
+		for(Sub s : lsubtsub) {
+			tableview.setId(s.getContent());
+			
+			System.out.println(s.getContent());
+		}
+		tableview.getColumns().addAll(firstNameCol, lastNameCol);
 	}
 
 }
