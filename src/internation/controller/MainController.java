@@ -66,12 +66,6 @@ public class MainController implements Initializable {
 		}
 		listsub.setItems(sub);
 		
-		huy
-		huy
-		huy
-		huy
-		
 	}
 
 }
-// HUY 
