@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TableView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -25,6 +26,8 @@ public class MainController implements Initializable {
 	private MediaPlayer mp;
 	private Media me;
 	private Slider slider;
+	@FXML
+	private TableView tableview;
 //	final VBox vbox = new VBox();
 	
 	public static final ObservableList subtime = 

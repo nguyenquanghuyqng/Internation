@@ -10,11 +10,6 @@
    <children>
       <MediaView fx:id="mv" fitHeight="350.0" fitWidth="570.0" layoutX="22.0" layoutY="14.0" />
       <Slider fx:id="slider" layoutX="22.0" layoutY="350.0" prefHeight="14.0" prefWidth="570.0" />
-      <TableView fx:id="tablesub" layoutX="604.0" layoutY="17.0" prefHeight="341.0" prefWidth="281.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
-      </TableView>
+      <TableView fx:id="tableview" layoutX="599.0" layoutY="14.0" prefHeight="340.0" prefWidth="287.0" />
    </children>
 </Pane>
