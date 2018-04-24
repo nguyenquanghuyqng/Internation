@@ -44,13 +44,6 @@ public class MainController implements Initializable {
 		mp = new MediaPlayer(me);
 		mv.setMediaPlayer(mp);
 		mp.setAutoPlay(true);
-//	Hiep
-		DoubleProperty width = mv.fitWidthProperty();
-		DoubleProperty height = mv.fitHeightProperty();
-		width.bind(Bindings.selectDouble(mv.sceneProperty(), "width"));
-	height.bind(Bindings.selectDouble(mv.sceneProperty(), "height"));
-		
-		////////////Hiep
 		
 //		vbox.getChildren().add(slider);
 //		mp.play();
@@ -73,10 +66,6 @@ public class MainController implements Initializable {
 		}
 		listsub.setItems(sub);
 		
-		
-		//huy
-			System.out.println("Huy");
-		//Huy
 		
 	}
 
