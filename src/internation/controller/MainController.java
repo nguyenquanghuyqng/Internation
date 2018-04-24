@@ -44,13 +44,13 @@ public class MainController implements Initializable {
 		mp = new MediaPlayer(me);
 		mv.setMediaPlayer(mp);
 		mp.setAutoPlay(true);
-//	
-//		DoubleProperty width = mv.fitWidthProperty();
-//		DoubleProperty height = mv.fitHeightProperty();
-//		width.bind(Bindings.selectDouble(mv.sceneProperty(), "width"));
-//		height.bind(Bindings.selectDouble(mv.sceneProperty(), "height"));
+//	Hiep
+		DoubleProperty width = mv.fitWidthProperty();
+		DoubleProperty height = mv.fitHeightProperty();
+		width.bind(Bindings.selectDouble(mv.sceneProperty(), "width"));
+	height.bind(Bindings.selectDouble(mv.sceneProperty(), "height"));
 		
-		
+		////////////Hiep
 		
 //		vbox.getChildren().add(slider);
 //		mp.play();
