@@ -13,13 +13,10 @@ public class Sub {
 	private String time;
 	private int video_id;
 
-	public Sub(int id, String content, String content_internation, String time, int video_id) {
+	public Sub(String time,String content) {
 		super();
-		this.id = id;
 		this.content = content;
-		this.content_internation = content_internation;
 		this.time = time;
-		this.video_id = video_id;
 	}
 
 	public Sub() {
