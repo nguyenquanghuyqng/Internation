@@ -6,10 +6,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="900.0" style="-fx-background-color: #CCFF99;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="internation.controller.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #CCFF99;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="internation.controller.MainController">
    <children>
-      <MediaView fx:id="mv" fitHeight="350.0" fitWidth="570.0" layoutX="22.0" layoutY="14.0" />
-      <Slider fx:id="slider" layoutX="22.0" layoutY="350.0" prefHeight="14.0" prefWidth="570.0" />
-      <TableView fx:id="tableview" layoutX="599.0" layoutY="14.0" prefHeight="340.0" prefWidth="287.0" />
+      <MediaView fx:id="mv" fitHeight="450.0" fitWidth="700.0" layoutX="22.0" layoutY="19.0" />
+      <Slider fx:id="slider" layoutX="22.0" layoutY="476.0" prefHeight="14.0" prefWidth="710.0" />
+      <TableView fx:id="tableview" layoutX="750.0" layoutY="19.0" prefHeight="450.0" prefWidth="425.0" />
    </children>
 </Pane>

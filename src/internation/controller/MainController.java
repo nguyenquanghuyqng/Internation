@@ -78,7 +78,7 @@ public class MainController implements Initializable {
 		Time.setCellValueFactory(new PropertyValueFactory<Sub, String>("time"));
 
 		TableColumn Sub = new TableColumn("Sub");
-		Sub.setMinWidth(220);
+		Sub.setMinWidth(420);
 		Sub.setCellValueFactory(new PropertyValueFactory<Sub, String>("content"));
 
 		for (Sub s : lsubtsub) {
