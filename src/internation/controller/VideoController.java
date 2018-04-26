@@ -2,6 +2,7 @@ package internation.controller;
 
 import java.io.File;
 import java.net.URL;
+import java.util.DuplicateFormatFlagsException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -86,6 +87,7 @@ public class VideoController implements Initializable {
                 } else {
                     mp.pause();
                 }
+                System.out.println("1");
             }
         });
 		
@@ -93,6 +95,7 @@ public class VideoController implements Initializable {
         mp.currentTimeProperty().addListener(new InvalidationListener() {
             public void invalidated(Observable ov) {
                 updateValues();
+                System.out.println("2");
             }
         });
         
@@ -104,6 +107,7 @@ public class VideoController implements Initializable {
                 } else {
                     playButton.setText("||");
                 }
+                System.out.println("3");
             }
         });
 
@@ -111,13 +115,15 @@ public class VideoController implements Initializable {
             public void run() {
                 System.out.println("onPaused");
                 playButton.setText(">");
+                System.out.println("4");
             }
         });
 
         mp.setOnReady(new Runnable() {
             public void run() {
                 duration = mp.getMedia().getDuration();
-                //updateValues();
+                updateValues();
+                System.out.println("5");
             }
         });
 
@@ -129,6 +135,7 @@ public class VideoController implements Initializable {
                     stopRequested = true;
                     atEndOfMedia = true;
                 }
+                System.out.println("6");
             }
         });
         
@@ -139,6 +146,7 @@ public class VideoController implements Initializable {
                     // multiply duration by percentage calculated by slider position
                     mp.seek(duration.multiply(timeSlider.getValue() / 100.0));
                 }
+                System.out.println("7");
             }
         });
         
@@ -189,10 +197,11 @@ public class VideoController implements Initializable {
 				int index = tableview.getSelectionModel().getSelectedIndex();
 				//String timeStop = tableview.getColumns().get(index+1).getCellObservableValue(0).getValue().toString();
 				System.out.println(t_Start +"   " + index);
-				//mp.pause();
-				timeSlider.setValue(t_Start);
-				mp.setStartTime(duration.seconds(t_Start));
-				//mp.play();
+			    //gan lai gia tri cho slide --> tu slider thong qua updateValue de xet thoi gian video
+				timeSlider.setValue(t_Start/2);
+				updateValues();
+				mp.seek(duration.multiply(timeSlider.getValue() / 100.0));
+;
 			}
         	
 		});
@@ -269,7 +278,7 @@ public class VideoController implements Initializable {
     	if(t!='0')
     	{
     		v= t-'0';
-    		timeAfterConvert=t*10;
+    		timeAfterConvert=v*10;
     	}
     	//phut don vi
     	t=time.charAt(1);
@@ -278,19 +287,29 @@ public class VideoController implements Initializable {
     		v= t-'0';
     		timeAfterConvert=timeAfterConvert+v;
     	}
-    	//giay chuc
+    	//giay 
     	t=time.charAt(3);
     	if(t!='0')
     	{
     		v= t-'0';
     		timeAfterConvert=timeAfterConvert*60+v*10;
+    		t=time.charAt(4);
+        	if(t!='0')
+        	{
+        		v= t-'0';
+        		timeAfterConvert=timeAfterConvert+v;;
+        	}
     	}
-    	//giay don vi
-    	t=time.charAt(4);
-    	if(t!='0')
+    	
+    	if(t=='0')
     	{
-    		v= t-'0';
-    		timeAfterConvert=timeAfterConvert+v;;
+ 
+    		t=time.charAt(4);
+        	if(t!='0')
+        	{
+        		v= t-'0';
+        		timeAfterConvert=timeAfterConvert*60+v;;
+        	}
     	}
     	return timeAfterConvert;
     }
