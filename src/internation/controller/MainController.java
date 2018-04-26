@@ -73,11 +73,11 @@ public class MainController implements Initializable {
 		// }
 		// listsub.setItems(sub);
 
-		TableColumn Time = new TableColumn("Time");
+		TableColumn Time = new TableColumn("Time1");
 		Time.setMinWidth(10);
 		Time.setCellValueFactory(new PropertyValueFactory<Sub, String>("time"));
 
-		TableColumn Sub = new TableColumn("Sub");
+		TableColumn Sub = new TableColumn("Sub2");
 		Sub.setMinWidth(420);
 		Sub.setCellValueFactory(new PropertyValueFactory<Sub, String>("content"));
 
