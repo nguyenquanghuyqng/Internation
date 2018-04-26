@@ -53,6 +53,8 @@ public class VideoController implements Initializable {
 	private Duration duration;
 	@FXML
 	private TableView<Sub> tableview = new TableView<Sub>();
+	@FXML
+	private TableView<Sub> tableviewInternation = new TableView<Sub>();
 	private ObservableList<Sub> data1 = FXCollections.observableArrayList();
 
 	@Override
