@@ -1,38 +1,10 @@
-/*
- * Copyright (c) 2012 Oracle and/or its affiliates.
- * All rights reserved. Use is subject to license terms.
- *
- * This file is available and licensed under the following license:
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- *  - Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  - Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the distribution.
- *  - Neither the name of Oracle nor the names of its
- *    contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 package internation.controller;
 
-import java.awt.Event;
+import java.io.File;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
+
 import internation.dao.GetSub;
 import internation.model.Sub;
 import javafx.application.Platform;
@@ -42,10 +14,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -53,56 +23,48 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
+import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
-public class MediaControl extends BorderPane {
+public class VideoController implements Initializable {
+	@FXML
+	private MediaView mediaView;
+	//@FXML
+	//private TableView tableview;
+	@FXML
+	private Label playTime;
+	@FXML
+	private Slider timeSlider;
+	@FXML
+	private Slider volumeSlider;
+	@FXML
+	private Button playButton;
+	
+	private Media me;
+	private MediaPlayer mp;
 
-    private MediaPlayer mp;
-    private MediaView mediaView;
-    private final boolean repeat = false;
-    private boolean stopRequested = false;
-    private boolean atEndOfMedia = false;
-    private Duration duration;
-    private Slider timeSlider;
-    private Label playTime;
-    private Slider volumeSlider;
-    private HBox mediaBar;
-    private HBox viewSub;
-    
+	private final boolean repeat = false;
+	private boolean stopRequested = false;
+	private boolean atEndOfMedia = false;
+	private Duration duration;
+	@FXML
 	private TableView<Sub> tableview = new TableView<Sub>();
-	private ObservableList<Sub> data = FXCollections.observableArrayList();
+	private ObservableList<Sub> data1 = FXCollections.observableArrayList();
 
-    public MediaControl(final MediaPlayer mp) {
-        this.mp = mp;
-        setStyle("-fx-background-color: #bfc2c7;");
-       
-        mediaView = new MediaView(mp);
-        mediaView.setFitHeight(450.0);
-        mediaView.setFitWidth(700.0);
-        Pane mvPane = new Pane() {
-        };
-        mvPane.getChildren().add(mediaView);
-        mvPane.setStyle("-fx-background-color: black;");
-        mvPane.setMaxWidth(700);
-        mvPane.setMaxHeight(450);
-        setLeft(mvPane);
-        //setCenter(mvPane);
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 
-        mediaBar = new HBox();
-        mediaBar.setAlignment(Pos.BOTTOM_LEFT);
-        mediaBar.setPadding(new Insets(5, 10, 5, 10));
-        mediaBar.setMaxWidth(700);
-        BorderPane.setAlignment(mediaBar, Pos.BOTTOM_LEFT);
+		// Lấy file path của video
+		String path = new File("src/media/Video3.mp4").getAbsolutePath();
+		me = new Media(new File(path).toURI().toString());
+		mp = new MediaPlayer(me);
+		mediaView.setMediaPlayer(mp);
+		mp.setAutoPlay(true);
 
-        final Button playButton = new Button(">");
-
-        playButton.setOnAction(new EventHandler<ActionEvent>() {
+		playButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 System.out.println(tableview.getColumns().indexOf(1));
                 Status status = mp.getStatus();
@@ -126,14 +88,15 @@ public class MediaControl extends BorderPane {
                 }
             }
         });
-        //Su kiện slider di chuyển  khi chạy video 
+		
+		 //Su kiện slider di chuyển  khi chạy video 
         mp.currentTimeProperty().addListener(new InvalidationListener() {
             public void invalidated(Observable ov) {
                 updateValues();
             }
         });
         
-        /*mp.setOnPlaying(new Runnable() {
+        mp.setOnPlaying(new Runnable() {
             public void run() {
                 if (stopRequested) {
                     mp.pause();
@@ -142,7 +105,7 @@ public class MediaControl extends BorderPane {
                     playButton.setText("||");
                 }
             }
-        });*/
+        });
 
         mp.setOnPaused(new Runnable() {
             public void run() {
@@ -158,7 +121,7 @@ public class MediaControl extends BorderPane {
             }
         });
 
-        /*mp.setCycleCount(repeat ? MediaPlayer.INDEFINITE : 1);
+        mp.setCycleCount(repeat ? MediaPlayer.INDEFINITE : 1);
         mp.setOnEndOfMedia(new Runnable() {
             public void run() {
                 if (!repeat) {
@@ -167,24 +130,9 @@ public class MediaControl extends BorderPane {
                     atEndOfMedia = true;
                 }
             }
-        });*/
-
-        mediaBar.getChildren().add(playButton);
-        // Add spacer
-        Label spacer = new Label("   ");
-        mediaBar.getChildren().add(spacer);
-
-        // Add Time label
-        Label timeLabel = new Label("Time: ");
-        mediaBar.getChildren().add(timeLabel);
-
-        // Add time slider
-        timeSlider = new Slider();
-        HBox.setHgrow(timeSlider, Priority.ALWAYS);
-        timeSlider.setMinWidth(50);
-        timeSlider.setMaxWidth(Double.MAX_VALUE);
+        });
         
-        //Ham keo chuot
+      //Ham keo chuot
         timeSlider.valueProperty().addListener(new InvalidationListener() {
             public void invalidated(Observable ov) {
                 if (timeSlider.isValueChanging()) {
@@ -193,23 +141,7 @@ public class MediaControl extends BorderPane {
                 }
             }
         });
-        mediaBar.getChildren().add(timeSlider);
-
-        // Add Play label
-        playTime = new Label();
-        playTime.setPrefWidth(130);
-        playTime.setMinWidth(50);
-        mediaBar.getChildren().add(playTime);
-
-        // Add the volume label
-        Label volumeLabel = new Label("Vol: ");
-        mediaBar.getChildren().add(volumeLabel);
-
-        // Add Volume slider
-        volumeSlider = new Slider();
-        volumeSlider.setPrefWidth(70);
-        volumeSlider.setMaxWidth(Region.USE_PREF_SIZE);
-        volumeSlider.setMinWidth(30);
+        
         volumeSlider.valueProperty().addListener(new InvalidationListener() {
             public void invalidated(Observable ov) {
                 if (volumeSlider.isValueChanging()) {
@@ -217,17 +149,7 @@ public class MediaControl extends BorderPane {
                 }
             }
         });
-        mediaBar.getChildren().add(volumeSlider);
-
-        setBottom(mediaBar);
         
-        //ViewSub 
-        
-        viewSub = new HBox();
-        viewSub.setAlignment(Pos.TOP_RIGHT);
-        viewSub.setPadding(new Insets(5, 10, 5, 10));
-        BorderPane.setAlignment(viewSub, Pos.TOP_RIGHT);
-
         TableColumn timeCol = new TableColumn("Time");
         timeCol.setMinWidth(10);
         timeCol.setCellValueFactory(new PropertyValueFactory<Sub, String>("time"));
@@ -246,7 +168,7 @@ public class MediaControl extends BorderPane {
         	try {
         		System.out.println("Sub :" + s.getContent());
         		System.out.println("Time :" + s.getTime());
-        		data.add(new Sub(s.getTime(), s.getContent()));
+        		data1.add(new Sub(s.getTime(), s.getContent()));
         	} catch (Exception e) {
         		System.out.println("Error: " + e.getMessage());
         	}
@@ -254,7 +176,8 @@ public class MediaControl extends BorderPane {
 
         tableview.getColumns().addAll(timeCol, subCol);
 
-        tableview.getItems().setAll(data);
+        tableview.getItems().setAll(data1);
+//        
         tableview.setOnMousePressed(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -273,14 +196,10 @@ public class MediaControl extends BorderPane {
 			}
         	
 		});
-        viewSub.getChildren().add(tableview);
-        setRight(viewSub);
-
-        
-    }
-    
-    
-    protected void updateValues() {
+       
+		
+	}
+	protected void updateValues() {
         if (playTime != null && timeSlider != null && volumeSlider != null) {
             Platform.runLater(new Runnable() {
                 public void run() {
@@ -301,8 +220,8 @@ public class MediaControl extends BorderPane {
             });
         }
     }
-
-    private static String formatTime(Duration elapsed, Duration duration) {
+	
+	private static String formatTime(Duration elapsed, Duration duration) {
         int intElapsed = (int) Math.floor(elapsed.toSeconds());
         int elapsedHours = intElapsed / (60 * 60);
         if (elapsedHours > 0) {
@@ -375,4 +294,5 @@ public class MediaControl extends BorderPane {
     	}
     	return timeAfterConvert;
     }
+
 }

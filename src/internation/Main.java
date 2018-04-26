@@ -5,8 +5,6 @@ import java.io.File;
 import java.net.URL;
 import java.time.Duration;
 
-import internation.controller.MediaControl;
-import internation.controller.ViewSub;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -33,32 +31,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			/*Parent root = FXMLLoader.load(getClass().getResource("/internation/Main.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/internation/Main.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			*/
-			//Hiep 
-			Group root = new Group();
-			Scene scene = new Scene(root, 1500, 600);
-			String path = new File("src/media/Video3.mp4").getAbsolutePath();
-			Media pick = new Media(new File(path).toURI().toString());
-			//Media pick = new Media("file:///" + System.getProperty("user.dir").replace('\\', '/') + "/" + "media/Video3.mp4");
-	        //Media media = new Media (pick);
-	        MediaPlayer mediaPlayer = new MediaPlayer(pick);
-	        mediaPlayer.setAutoPlay(true);
-	        MediaControl mediaControl = new MediaControl(mediaPlayer);
-	        //ViewSub sub = new ViewSub(mediaPlayer);
-	        root.getChildren().add(mediaControl);
-	        //root.getChildren().add(sub);
-	        scene.setRoot(root);
 
-	        
-	        primaryStage.setScene(scene);
-	        
-	        primaryStage.show();
-	        //
 	} catch(Exception e) {
 			e.printStackTrace();
 		}
