@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="667.0" prefWidth="984.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="internation.controller.HistoryController">
+	<children>
+		<TabPane layoutY="98.0" prefHeight="568.0" prefWidth="984.0" tabClosingPolicy="UNAVAILABLE">
+			<tabs>
+				<Tab text="Seen Video">
+					<content>
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+							<children>
+								<TableView fx:id="videotable" layoutX="8.0" layoutY="37.0" prefHeight="484.0" prefWidth="542.0">
+									<columns>
+										<TableColumn fx:id="hinh" prefWidth="190.0" text="hinh" />
+										<TableColumn fx:id="name" prefWidth="351.0" text="name" />
+									</columns>
+								</TableView>
+								<Pane layoutX="548.0" layoutY="38.0" prefHeight="482.0" prefWidth="430.0" style="-fx-background-color: #a4a6a8;">
+									<children>
+                              <ListView fx:id="txtview" layoutX="1.0" layoutY="53.0" prefHeight="430.0" prefWidth="432.0" />
+                              <Button fx:id="btnsearch" layoutX="366.0" layoutY="8.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="57.0" text="." />
+      								<TextField fx:id="txtsearch" alignment="CENTER_RIGHT" layoutX="55.0" layoutY="8.0" prefHeight="39.0" prefWidth="311.0" promptText="search..." style="-fx-background-color: #ffffff;" />
+									</children>
+								</Pane>
+							</children>
+						</AnchorPane>
+					</content>
+				</Tab>
+				<Tab text="Review sentences">
+					<content>
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="517.0" prefWidth="984.0">
+                     <children>
+                        <Text fill="#0ec219" fontSmoothingType="LCD" layoutX="337.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saved  sentences" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold Italic" size="38.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="sensearch" alignment="CENTER_RIGHT" layoutX="57.0" layoutY="58.0" prefHeight="39.0" prefWidth="311.0" promptText="search..." style="-fx-background-color: #ffffff;" />
+                        <Button fx:id="btnsearch1" layoutY="58.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="57.0" style="-fx-border-color: #8e0106;" text="." />
+                        <ListView fx:id="senlist" layoutY="97.0" prefHeight="430.0" prefWidth="984.0" style="-fx-background-color: #adf2a9;" />
+                     </children>
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect></AnchorPane>
+					</content>
+				</Tab>
+			</tabs>
+		</TabPane>
+								<Text fill="#f20d0d" layoutX="382.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Review" textAlignment="CENTER">
+									<font>
+										<Font size="66.0" />
+									</font>
+								</Text>
+	</children>
+</AnchorPane>
