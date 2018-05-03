@@ -18,12 +18,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
@@ -41,6 +41,8 @@ public class VideoController implements Initializable {
 	private Label playTime;
 	@FXML
 	private Slider timeSlider;
+	//@FXML
+	private Slider volumeSlider;
 	@FXML
 	private Button playButton;
 	
@@ -60,9 +62,7 @@ public class VideoController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		
-        
-		// Láº¥y file path cá»§a video
+		// Lấy file path của video
 		String path = new File("src/media/Video3.mp4").getAbsolutePath();
 		me = new Media(new File(path).toURI().toString());
 		mp = new MediaPlayer(me);
@@ -76,7 +76,6 @@ public class VideoController implements Initializable {
         alert.setHeaderText("Hướng dẫn học thao tac chuột trên video");
         alert.setContentText("Để tua nhanh video bạn dùng chuột kéo thanh slider phái dưới màn hình video \n Click chuột phải để tua video lại thời điểm bạn cần nghe \n Click chuột phải để lưu câu đó");
  
-        alert.showAndWait();
 
 		playButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
@@ -106,7 +105,7 @@ public class VideoController implements Initializable {
             }
         });
 		
-		 //Su kiá»‡n slider di chuyá»ƒn  khi cháº¡y video 
+		 //Su kiện slider di chuyển  khi chạy video 
         mp.currentTimeProperty().addListener(new InvalidationListener() {
             public void invalidated(Observable ov) {
                 updateValues();
@@ -120,7 +119,6 @@ public class VideoController implements Initializable {
                     mp.pause();
                     stopRequested = false;
                 } else {
-                    //playButton.setText("||");
                     playButton.setStyle("-fx-background-image: url('/Images/pause.png')");
                 }
                 System.out.println("3");
@@ -130,7 +128,6 @@ public class VideoController implements Initializable {
         mp.setOnPaused(new Runnable() {
             public void run() {
                 System.out.println("onPaused");
-                //playButton.setText(">");
                 playButton.setStyle("-fx-background-image: url('/Images/play.png')");
                 System.out.println("4");
             }
@@ -148,7 +145,7 @@ public class VideoController implements Initializable {
         mp.setOnEndOfMedia(new Runnable() {
             public void run() {
                 if (!repeat) {
-                    //playButton.setText(">");
+                    playButton.setText(">");
                     playButton.setStyle("-fx-background-image: url('/Images/play.png')");
                     stopRequested = true;
                     atEndOfMedia = true;
@@ -168,8 +165,13 @@ public class VideoController implements Initializable {
             }
         });
         
-       
-        
+        /*volumeSlider.valueProperty().addListener(new InvalidationListener() {
+            public void invalidated(Observable ov) {
+                if (volumeSlider.isValueChanging()) {
+                    mp.setVolume(volumeSlider.getValue() / 100.0);
+                }
+            }
+        });*/
         
         TableColumn timeCol = new TableColumn("Time");
         timeCol.setMinWidth(10);
@@ -214,7 +216,6 @@ public class VideoController implements Initializable {
 				timeSlider.setValue(t_Start/2);
 				updateValues();
 				mp.seek(duration.multiply(timeSlider.getValue() / 100.0));
-;
 			}
         	
 		});
