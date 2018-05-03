@@ -176,8 +176,8 @@ public class VideoController implements Initializable {
         List<Sub> lsubtsub = GetSub.GetListSub(1);
         for (Sub s : lsubtsub) {
         	try {
-        		System.out.println("Sub :" + s.getContent());
-        		System.out.println("Time :" + s.getTime());
+//        		System.out.println("Sub :" + s.getContent());
+//        		System.out.println("Time :" + s.getTime());
         		data1.add(new Sub(s.getTime(), s.getContent()));
         	} catch (Exception e) {
         		System.out.println("Error: " + e.getMessage());

@@ -26,7 +26,7 @@ public class GetSub {
 			// TODO: handle exception
 			System.err.println("Can not connect :" + e);
 		}
-		String sql = "Select time,content From sub where video_id="+id+"" ;
+		String sql = "Select time,content,content_internation From sub where video_id="+id+"" ;
 		
 		try {
 			// Chuẩn bị câu lệnh truy vấn
@@ -38,6 +38,7 @@ public class GetSub {
 				Sub sub = new Sub();
 				sub.setContent(rs.getString("content"));
 				sub.setTime(rs.getString("time"));
+				sub.setContent_internation(rs.getString("content_internation"));
 				listsub.add(sub);
 			}
 		} catch (Exception ex) {
