@@ -239,7 +239,7 @@ public class VideoController implements Initializable {
             });
         }
     }
-	
+	//huy oc cho
 	private static String formatTime(Duration elapsed, Duration duration) {
         int intElapsed = (int) Math.floor(elapsed.toSeconds());
         int elapsedHours = intElapsed / (60 * 60);
