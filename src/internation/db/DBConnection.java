@@ -18,7 +18,7 @@ public class DBConnection {
     private static final String URL_DB = "jdbc:mysql://localhost/internation";
     // Pass and User
     private static final String USER = "root";
-    private static final String PASS = "hoanghiep";
+    private static final String PASS = "12345";
 
     private static Connection conn;
 
