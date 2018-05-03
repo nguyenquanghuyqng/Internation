@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<Pane prefHeight="264.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="internation.controller.IntroController">
+   <children>
+      <ImageView fx:id="imgIntro" fitHeight="264.0" fitWidth="419.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+             <Image url="@../Images/paner.png" /> 
+         </image>
+      </ImageView>
+      <Label layoutX="86.0" layoutY="56.0" text="English Intonation" textFill="#ee3017">
+         <font>
+            <Font name="Bodoni MT Bold" size="29.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnStart" layoutX="126.0" layoutY="180.0" mnemonicParsing="false" onAction="#startLearning" prefHeight="35.0" prefWidth="125.0" text="START">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
