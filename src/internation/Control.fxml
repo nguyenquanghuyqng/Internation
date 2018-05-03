@@ -11,9 +11,29 @@
     <Tab fx:id="pnBasic" onSelectionChanged="#BasicLoad" text="Basic" />
     <Tab fx:id="pnVideo" onSelectionChanged="#StudyVideoLoad" text="Study Video" />
     <Tab fx:id="pnHistory" onSelectionChanged="#HistoryLoad" text="History" />
-    <Tab fx:id="pnHelp" text="Help">
+    <Tab fx:id="pnHelp" onSelectionChanged="#HelpLoad" text="Help">
          <content>
-            <TextArea prefHeight="200.0" prefWidth="200.0" />
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnBrowse" layoutX="38.0" layoutY="71.0" mnemonicParsing="false" text="Browse" />
+                  <Text fx:id="txtFile" layoutX="134.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="423.826171875">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="38.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select video">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="btnInsert" layoutX="39.0" layoutY="121.0" mnemonicParsing="false" text="Insert" />
+                  <Text fx:id="txtResult" layoutX="38.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
          </content></Tab>
   </tabs>
 </TabPane>

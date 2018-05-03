@@ -85,7 +85,7 @@ public class HistoryController implements Initializable{
 		for (Video vd :listvd){
 
 
-            if(vd.getTimepause().toString()!="00:00:00"){
+            if(!vd.getTimepause().toString().equals("00:00:00")){
 
 			video.add(new tablevideo(vd.getId(),new ImageView(new Image(vd.getImage().toString())),vd.getVideoname()));
             }

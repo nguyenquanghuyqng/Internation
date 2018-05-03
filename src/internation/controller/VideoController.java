@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import internation.dao.GetSub;
+import internation.dao.SetReview;
+import internation.model.Review;
 import internation.model.Sub;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
@@ -25,6 +27,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -101,7 +104,7 @@ public class VideoController implements Initializable {
                     mp.pause();
                     playButton.setStyle("-fx-background-image: url('/Images/play.png')");
                 }
-                System.out.println("1");
+                //System.out.println("1");
             }
         });
 		
@@ -109,7 +112,7 @@ public class VideoController implements Initializable {
         mp.currentTimeProperty().addListener(new InvalidationListener() {
             public void invalidated(Observable ov) {
                 updateValues();
-                System.out.println("2");
+                //System.out.println("2");
             }
         });
         
@@ -121,7 +124,7 @@ public class VideoController implements Initializable {
                 } else {
                     playButton.setStyle("-fx-background-image: url('/Images/pause.png')");
                 }
-                System.out.println("3");
+                //System.out.println("3");
             }
         });
 
@@ -129,7 +132,7 @@ public class VideoController implements Initializable {
             public void run() {
                 System.out.println("onPaused");
                 playButton.setStyle("-fx-background-image: url('/Images/play.png')");
-                System.out.println("4");
+                //System.out.println("4");
             }
         });
 
@@ -137,7 +140,7 @@ public class VideoController implements Initializable {
             public void run() {
                 duration = mp.getMedia().getDuration();
                 updateValues();
-                System.out.println("5");
+                //System.out.println("5");
             }
         });
 
@@ -150,7 +153,7 @@ public class VideoController implements Initializable {
                     stopRequested = true;
                     atEndOfMedia = true;
                 }
-                System.out.println("6");
+                //System.out.println("6");
             }
         });
         
@@ -161,7 +164,7 @@ public class VideoController implements Initializable {
                     // multiply duration by percentage calculated by slider position
                     mp.seek(duration.multiply(timeSlider.getValue() / 100.0));
                 }
-                System.out.println("7");
+                //System.out.println("7");
             }
         });
         
@@ -201,7 +204,7 @@ public class VideoController implements Initializable {
 
         tableview.getItems().setAll(data1);
 //        
-        tableview.setOnMousePressed(new EventHandler<MouseEvent>() {
+        /*tableview.setOnMousePressed(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent arg0) {
@@ -216,6 +219,82 @@ public class VideoController implements Initializable {
 				timeSlider.setValue(t_Start/2);
 				updateValues();
 				mp.seek(duration.multiply(timeSlider.getValue() / 100.0));
+			}
+        	
+		});
+        	if(event.getButton()==MouseButton.SECONDARY)
+			{
+				Review review = new Review();
+				System.out.print("chuot phai");
+				String content =tableview.getSelectionModel().getSelectedItem().getContent();
+				System.out.println(content);
+				
+				review.setContent(content);
+				//
+				review.setId(2);
+				review.setSub_id(2);
+				review.setVideo_id(1);
+				SetReview.insertReview(review);
+				System.out.println(review.getId()+","+review.getContent()+","+review.getVideo_id());
+			}
+			else
+			{
+			// TODO Auto-generated method stub
+			String timeStart =tableview.getSelectionModel().getSelectedItem().getTime();
+			int t_Start=conVertTimeToInt(timeStart);
+			//int time = Integer.parseInt(timeStart);
+			int index = tableview.getSelectionModel().getSelectedIndex();
+			//String timeStop = tableview.getColumns().get(index+1).getCellObservableValue(0).getValue().toString();
+			System.out.println(t_Start +"   " + index);
+		    //gan lai gia tri cho slide --> tu slider thong qua updateValue de xet thoi gian video
+			timeSlider.setValue(t_Start/2);
+			updateValues();
+			mp.seek(duration.multiply(timeSlider.getValue() / 100.0));
+			}
+;
+		}
+    	
+	});*/
+        tableview.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				if(event.getButton()==MouseButton.SECONDARY)
+				{
+					Review review = new Review();
+					System.out.print("chuot phai");
+					String content =tableview.getSelectionModel().getSelectedItem().getContent();
+					System.out.println(content);
+					
+					review.setContent(content);
+					//
+					review.setSub_id(2);
+					review.setVideo_id(1);
+					SetReview.insertReview(review);
+					System.out.println(review.getContent()+","+review.getVideo_id());
+					
+					//Thong bao
+			        Alert alert = new Alert(AlertType.INFORMATION);
+			        alert.setTitle("Help");
+			        //alert.setHeaderText("Hướng dẫn học thao tac chuột trên video");
+			        alert.setContentText("Đã lưu câu được chọn");
+			 
+				}
+				else
+				{
+				// TODO Auto-generated method stub
+				String timeStart =tableview.getSelectionModel().getSelectedItem().getTime();
+				int t_Start=conVertTimeToInt(timeStart);
+				//int time = Integer.parseInt(timeStart);
+				int index = tableview.getSelectionModel().getSelectedIndex();
+				//String timeStop = tableview.getColumns().get(index+1).getCellObservableValue(0).getValue().toString();
+				System.out.println(t_Start +"   " + index);
+			    //gan lai gia tri cho slide --> tu slider thong qua updateValue de xet thoi gian video
+				timeSlider.setValue(t_Start/2);
+				updateValues();
+				mp.seek(duration.multiply(timeSlider.getValue() / 100.0));
+				}
+;
 			}
         	
 		});

@@ -7,7 +7,16 @@ public class Flag {
 	private boolean fBasic;
 	private boolean fStudyVideo;
 	private boolean fReview;
+	private boolean fHelp;
 	
+	public boolean isfHelp() {
+		return fHelp;
+	}
+
+	public void setfHelp(boolean fHelp) {
+		this.fHelp = fHelp;
+	}
+
 	public Flag()
 	{
 		
