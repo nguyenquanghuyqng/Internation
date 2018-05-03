@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="1100.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="internation.controller.ControlController">
+  <tabs>
+    <Tab fx:id="pnBasic" onSelectionChanged="#BasicLoad" text="Basic" />
+    <Tab fx:id="pnVideo" onSelectionChanged="#StudyVideoLoad" text="Study Video" />
+    <Tab fx:id="pnHistory" onSelectionChanged="#HistoryLoad" text="History" />
+    <Tab fx:id="pnHelp" text="Help">
+         <content>
+            <TextArea prefHeight="200.0" prefWidth="200.0" />
+         </content></Tab>
+  </tabs>
+</TabPane>
