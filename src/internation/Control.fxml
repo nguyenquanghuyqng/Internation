@@ -8,15 +8,12 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="1100.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="internation.controller.ControlController">
   <tabs>
-    <Tab fx:id="pnBasic" onSelectionChanged="#BasicLoad" text="Basic" />
-    <Tab fx:id="pnVideo" onSelectionChanged="#StudyVideoLoad" text="Study Video" />
-    <Tab fx:id="pnHistory" onSelectionChanged="#HistoryLoad" text="History" />
-    <Tab fx:id="pnHelp" onSelectionChanged="#HelpLoad" text="Help">
-         <content>
+    <Tab fx:id="pnBasic" onSelectionChanged="#BasicLoad" text="Basic">
+    <content>
             <Pane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btnBrowse" layoutX="38.0" layoutY="71.0" mnemonicParsing="false" text="Browse" />
-                  <Text fx:id="txtFile" layoutX="134.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="423.826171875">
+                  <Button fx:id="btnBrowseVideo" layoutX="38.0" layoutY="71.0" mnemonicParsing="false" text="Browse video" />
+                  <Text fx:id="txtVideo" layoutX="134.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="423.826171875">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -26,14 +23,25 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <Button fx:id="btnInsert" layoutX="39.0" layoutY="121.0" mnemonicParsing="false" text="Insert" />
+                  <Button fx:id="btnInsert" layoutX="38.0" layoutY="187.0" mnemonicParsing="false" text="Insert" />
                   <Text fx:id="txtResult" layoutX="38.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Text>
+                  <Button fx:id="btnBrowseSub" layoutX="38.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Browse sub " />
+                  <Text fx:id="txtSub" layoutX="134.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="423.826171875">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
                </children>
             </Pane>
-         </content></Tab>
+         </content>
+    </Tab>
+    <Tab fx:id="pnVideo" onSelectionChanged="#StudyVideoLoad" text="Study Video" />
+    <Tab fx:id="pnHistory" onSelectionChanged="#HistoryLoad" text="History" />
+    <Tab fx:id="pnHelp" onSelectionChanged="#HelpLoad" text="Help" />
+    
   </tabs>
 </TabPane>
