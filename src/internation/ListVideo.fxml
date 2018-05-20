@@ -1,45 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<Pane fx:id="pnParent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="999.0" style="-fx-background-color: #CCFF99;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="internation.controller.ListVideoController">
-   <children>
-      <ImageView fx:id="video1" fitHeight="100.0" fitWidth="200.0" layoutX="33.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" style="color: #ff0;" />
-      <ImageView fx:id="video2" fitHeight="100.0" fitWidth="200.0" layoutX="33.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="video3" fitHeight="100.0" fitWidth="200.0" layoutX="33.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true" />
-      <Text fx:id="content1" layoutX="261.0" layoutY="60.0" onMouseClicked="#ForwardVideo" onMouseMoved="#MovieStart" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello Huy">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Text>
-      <Text fx:id="content2" layoutX="261.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello Huy">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Text>
-      <Text fx:id="content3" layoutX="253.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello Huy">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Text>
-      <Text fx:id="descontent1" layoutX="261.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Text fx:id="descontent2" layoutX="261.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Text fx:id="descontent3" layoutX="261.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-   </children>
+<Pane fx:id="pnParent" prefHeight="500.0" prefWidth="1100.0"
+	style="-fx-background-color: #CCFF99;"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="internation.controller.ListVideoController">
+	<children>
+		<ListView fx:id="listView" layoutX="17.0" layoutY="15.0"
+			onMouseClicked="#handleMouseClick" prefHeight="428.0"
+			prefWidth="1060.0">
+
+		</ListView>
+	</children>
 </Pane>

@@ -53,6 +53,7 @@ public class ControlController implements Initializable {
 	private Button btnInsert;
 	@FXML
 	private Text txtResult;
+   
 
 	int a = 0;
 int b= 0;
@@ -67,10 +68,13 @@ int b= 0;
 		// flag.setfBasic(false);
 		// }
 
+//		Image imgbrowse = new Image(getClass().getResourceAsStream("Images/browse.png"));
 		btnBrowseVideo.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				
+//				Button button = (Button) event.getSource();
+//				btnBrowseVideo= new Button("Browse video");
+//				btnBrowseVideo.setGraphic(new ImageView(imgbrowse));
 				// File
 				FileInputStream inp;
 
@@ -97,8 +101,6 @@ int b= 0;
 			@Override
 			public void handle(ActionEvent event) {
 				 
-				System.out.println("Hello oc cho CUong");
-				
 				//Chọn file video từ máy tính 
 				JFileChooser fileChooser = new JFileChooser();
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("*.srt", "*.xls");

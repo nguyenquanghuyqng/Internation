@@ -8,25 +8,25 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="451.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="internation.controller.HistoryController">
+<AnchorPane prefHeight="500.0" prefWidth="1100.0" style="-fx-background-color: #CCFF99;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="internation.controller.HistoryController">
 	<children>
 		<TabPane layoutY="6.0" prefHeight="568.0" prefWidth="1092.0" tabClosingPolicy="UNAVAILABLE">
 			<tabs>
 				<Tab text="Seen Video">
 					<content>
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="442.0" prefWidth="1092.0">
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="539.0" prefWidth="1084.0">
 							<children>
-								<TableView fx:id="videotable" prefHeight="404.0" prefWidth="606.0">
+								<TableView fx:id="videotable" layoutX="5.0" prefHeight="420.0" prefWidth="596.0">
 									<columns>
-										<TableColumn fx:id="hinh" prefWidth="190.0" text="hinh" />
-										<TableColumn fx:id="name" prefWidth="351.0" text="name" />
+										<TableColumn fx:id="hinh" prefWidth="190.0" text="Video" />
+										<TableColumn fx:id="name" prefWidth="351.0" text="Video name" />
 									</columns>
 								</TableView>
-								<Pane layoutX="607.0" layoutY="1.0" prefHeight="413.0" prefWidth="477.0" style="-fx-background-color: #a4a6a8;">
+								<Pane layoutX="601.0" layoutY="1.0" prefHeight="420.0" prefWidth="490.0" style="-fx-background-color: #a4a6a8;">
 									<children>
-                              <ListView fx:id="txtview" layoutX="-1.0" layoutY="54.0" prefHeight="352.0" prefWidth="475.0" />
-                              <Button fx:id="btnsearch" layoutX="317.0" layoutY="8.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="57.0" text="." />
-      								<TextField fx:id="txtsearch" alignment="CENTER_RIGHT" layoutY="8.0" prefHeight="39.0" prefWidth="311.0" promptText="search..." style="-fx-background-color: #ffffff;" />
+                              <ListView fx:id="txtview" layoutX="-1.0" layoutY="30.0" prefHeight="390.0" prefWidth="489.0" />
+                              <Button fx:id="btnsearch" layoutX="340.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="148.0" text="." />
+      								<TextField fx:id="txtsearch" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="341.0" promptText="search..." style="-fx-background-color: #ffffff;" />
 									</children>
 								</Pane>
 							</children>

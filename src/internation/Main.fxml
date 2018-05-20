@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.media.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="1055.0" style="-fx-background-color: #CCFF99;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="internation.controller.VideoController">
+<Pane prefHeight="500.0" prefWidth="1100.0" style="-fx-background-color: #CCFF99;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="internation.controller.VideoController">
    <children>
-      <MediaView id="mediaView" fx:id="mediaView" fitHeight="350.0" fitWidth="600.0" layoutX="22.0" layoutY="14.0" />
-      <TabPane layoutX="630.0" layoutY="8.0" prefHeight="399.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE">
+      <MediaView id="mediaView" fx:id="mediaView" fitHeight="350.0" fitWidth="600.0" layoutX="14.0" layoutY="25.0" />
+      <TabPane layoutX="630.0" layoutY="8.0" prefHeight="447.0" prefWidth="453.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="No Internation">
                <content>
-                   <TableView fx:id="tableview" layoutX="599.0" layoutY="14.0" prefHeight="317.0" prefWidth="400.0" />
+                   <TableView fx:id="tableview" layoutX="599.0" layoutY="14.0" />
                </content>
             </Tab>
           <Tab text="Internation">
@@ -25,13 +26,19 @@
           		
         </tabs>
       </TabPane>
-      <Pane layoutX="19.0" layoutY="364.0" prefHeight="53.0" prefWidth="606.0" style="-fx-background-color: silver;">
+      <Pane layoutX="11.0" layoutY="400.0" prefHeight="53.0" prefWidth="606.0" style="-fx-background-color: silver;">
          <children>
-            <Button id="btnPlay" fx:id="playButton" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="32.0" />
+            <Button id="btnPlay" fx:id="playButton" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="32.0" />
             <Label id="lbTime" fx:id="playTime" layoutX="55.0" layoutY="23.0" text="00:00/00:00" />
+            <Label fx:id="lblid" layoutX="150.0" layoutY="23.0" />
+            <Label fx:id="lblNameVideo" layoutX="159.0" layoutY="11.0" prefHeight="28.0" prefWidth="447.0" textFill="#ff4221">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
-      <Slider id="slTime" fx:id="timeSlider" layoutX="22.0" layoutY="364.0" prefHeight="14.0" prefWidth="600.0" />
+      <Slider id="slTime" fx:id="timeSlider" layoutX="8.0" layoutY="375.0" prefHeight="14.0" prefWidth="606.0" />
       
    </children>
 </Pane>

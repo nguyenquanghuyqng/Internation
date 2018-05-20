@@ -46,11 +46,11 @@ public class HightLineInternation {
 	public static void Huy() {
 		
 		 // Tạo form chính 
-        frmKhachHang = new JFrame("Demo");        // Set tiêu đề cho form
+        frmKhachHang = new JFrame("Demo");        				// Set tiêu đề cho form
         frmKhachHang.setBounds(320, 80, 800, 570);              // Set vị trí và size cho form
         frmKhachHang.getContentPane().setLayout(null);          // Set layout cho form
 
-     // Panel chung Thông tin 
+        // Panel chung Thông tin 
         JPanel Panel = new JPanel();
         Panel.setBorder(new TitledBorder(null, "Thông tin khách hàng", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         Panel.setBounds(10, 10, 765, 510);

@@ -15,9 +15,9 @@ public class Review {
 	public Review() {
 
 	}
-	/*public int getId() {
+	public int getId() {
 		return id;
-	}*/
+	}
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -39,11 +39,5 @@ public class Review {
 	public void setSub_id(int sub_id) {
 		this.sub_id = sub_id;
 	}
-	
-	
-	
-	
-	
-	
-	
+ 	
 }

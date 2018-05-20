@@ -63,316 +63,290 @@ import javafx.util.Duration;
 
 public class MediaControl extends BorderPane {
 
-    private MediaPlayer mp;
-    private MediaView mediaView;
-    private final boolean repeat = false;
-    private boolean stopRequested = false;
-    private boolean atEndOfMedia = false;
-    private Duration duration;
-    private Slider timeSlider;
-    private Label playTime;
-    private Slider volumeSlider;
-    private HBox mediaBar;
-    private HBox viewSub;
-    
+	private MediaPlayer mp;
+	private MediaView mediaView;
+	private final boolean repeat = false;
+	private boolean stopRequested = false;
+	private boolean atEndOfMedia = false;
+	private Duration duration;
+	private Slider timeSlider;
+	private Label playTime;
+	private Slider volumeSlider;
+	private HBox mediaBar;
+	private HBox viewSub;
+
 	private TableView<Sub> tableview = new TableView<Sub>();
 	private ObservableList<Sub> data = FXCollections.observableArrayList();
 
-    public MediaControl(final MediaPlayer mp) {
-        this.mp = mp;
-        setStyle("-fx-background-color: #bfc2c7;");
-       
-        mediaView = new MediaView(mp);
-        mediaView.setFitHeight(450.0);
-        mediaView.setFitWidth(700.0);
-        Pane mvPane = new Pane() {
-        };
-        mvPane.getChildren().add(mediaView);
-        mvPane.setStyle("-fx-background-color: black;");
-        mvPane.setMaxWidth(700);
-        mvPane.setMaxHeight(450);
-        setLeft(mvPane);
-        //setCenter(mvPane);
+	public MediaControl(final MediaPlayer mp) {
+		this.mp = mp;
+		setStyle("-fx-background-color: #bfc2c7;");
 
-        mediaBar = new HBox();
-        mediaBar.setAlignment(Pos.BOTTOM_LEFT);
-        mediaBar.setPadding(new Insets(5, 10, 5, 10));
-        mediaBar.setMaxWidth(700);
-        BorderPane.setAlignment(mediaBar, Pos.BOTTOM_LEFT);
+		mediaView = new MediaView(mp);
+		mediaView.setFitHeight(450.0);
+		mediaView.setFitWidth(700.0);
+		Pane mvPane = new Pane() {
+		};
+		mvPane.getChildren().add(mediaView);
+		mvPane.setStyle("-fx-background-color: black;");
+		mvPane.setMaxWidth(700);
+		mvPane.setMaxHeight(450);
+		setLeft(mvPane);
+		// setCenter(mvPane);
 
-        final Button playButton = new Button(">");
+		mediaBar = new HBox();
+		mediaBar.setAlignment(Pos.BOTTOM_LEFT);
+		mediaBar.setPadding(new Insets(5, 10, 5, 10));
+		mediaBar.setMaxWidth(700);
+		BorderPane.setAlignment(mediaBar, Pos.BOTTOM_LEFT);
 
-        playButton.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                System.out.println(tableview.getColumns().indexOf(1));
-                Status status = mp.getStatus();
+		final Button playButton = new Button(">");
 
-                if (status == Status.UNKNOWN || status == Status.HALTED) {
-                    // don't do anything in these states
-                    return;
-                }
+		playButton.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				System.out.println(tableview.getColumns().indexOf(1));
+				Status status = mp.getStatus();
 
-                if (status == Status.PAUSED
-                        || status == Status.READY
-                        || status == Status.STOPPED) {
-                    // rewind the movie if we're sitting at the end
-                    if (atEndOfMedia) {
-                        mp.seek(mp.getStartTime());
-                        atEndOfMedia = false;
-                    }
-                    mp.play();
-                } else {
-                    mp.pause();
-                }
-            }
-        });
-        //Su kiện slider di chuyển  khi chạy video 
-        mp.currentTimeProperty().addListener(new InvalidationListener() {
-            public void invalidated(Observable ov) {
-                updateValues();
-            }
-        });
-        
-        /*mp.setOnPlaying(new Runnable() {
-            public void run() {
-                if (stopRequested) {
-                    mp.pause();
-                    stopRequested = false;
-                } else {
-                    playButton.setText("||");
-                }
-            }
-        });*/
+				if (status == Status.UNKNOWN || status == Status.HALTED) {
+					// don't do anything in these states
+					return;
+				}
 
-        mp.setOnPaused(new Runnable() {
-            public void run() {
-                System.out.println("onPaused");
-                playButton.setText(">");
-            }
-        });
+				if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
+					// rewind the movie if we're sitting at the end
+					if (atEndOfMedia) {
+						mp.seek(mp.getStartTime());
+						atEndOfMedia = false;
+					}
+					mp.play();
+				} else {
+					mp.pause();
+				}
+			}
+		});
+		// Su kiện slider di chuyển khi chạy video
+		mp.currentTimeProperty().addListener(new InvalidationListener() {
+			public void invalidated(Observable ov) {
+				updateValues();
+			}
+		});
 
-        mp.setOnReady(new Runnable() {
-            public void run() {
-                duration = mp.getMedia().getDuration();
-                //updateValues();
-            }
-        });
+		/*
+		 * mp.setOnPlaying(new Runnable() { public void run() { if (stopRequested) {
+		 * mp.pause(); stopRequested = false; } else { playButton.setText("||"); } } });
+		 */
 
-        /*mp.setCycleCount(repeat ? MediaPlayer.INDEFINITE : 1);
-        mp.setOnEndOfMedia(new Runnable() {
-            public void run() {
-                if (!repeat) {
-                    playButton.setText(">");
-                    stopRequested = true;
-                    atEndOfMedia = true;
-                }
-            }
-        });*/
+		mp.setOnPaused(new Runnable() {
+			public void run() {
+				System.out.println("onPaused");
+				playButton.setText(">");
+			}
+		});
 
-        mediaBar.getChildren().add(playButton);
-        // Add spacer
-        Label spacer = new Label("   ");
-        mediaBar.getChildren().add(spacer);
+		mp.setOnReady(new Runnable() {
+			public void run() {
+				duration = mp.getMedia().getDuration();
+				// updateValues();
+			}
+		});
 
-        // Add Time label
-        Label timeLabel = new Label("Time: ");
-        mediaBar.getChildren().add(timeLabel);
+		/*
+		 * mp.setCycleCount(repeat ? MediaPlayer.INDEFINITE : 1); mp.setOnEndOfMedia(new
+		 * Runnable() { public void run() { if (!repeat) { playButton.setText(">");
+		 * stopRequested = true; atEndOfMedia = true; } } });
+		 */
 
-        // Add time slider
-        timeSlider = new Slider();
-        HBox.setHgrow(timeSlider, Priority.ALWAYS);
-        timeSlider.setMinWidth(50);
-        timeSlider.setMaxWidth(Double.MAX_VALUE);
-        
-        //Ham keo chuot
-        timeSlider.valueProperty().addListener(new InvalidationListener() {
-            public void invalidated(Observable ov) {
-                if (timeSlider.isValueChanging()) {
-                    // multiply duration by percentage calculated by slider position
-                    mp.seek(duration.multiply(timeSlider.getValue() / 100.0));
-                }
-            }
-        });
-        mediaBar.getChildren().add(timeSlider);
+		mediaBar.getChildren().add(playButton);
+		// Add spacer
+		Label spacer = new Label("   ");
+		mediaBar.getChildren().add(spacer);
 
-        // Add Play label
-        playTime = new Label();
-        playTime.setPrefWidth(130);
-        playTime.setMinWidth(50);
-        mediaBar.getChildren().add(playTime);
+		// Add Time label
+		Label timeLabel = new Label("Time: ");
+		mediaBar.getChildren().add(timeLabel);
 
-        // Add the volume label
-        Label volumeLabel = new Label("Vol: ");
-        mediaBar.getChildren().add(volumeLabel);
+		// Add time slider
+		timeSlider = new Slider();
+		HBox.setHgrow(timeSlider, Priority.ALWAYS);
+		timeSlider.setMinWidth(50);
+		timeSlider.setMaxWidth(Double.MAX_VALUE);
 
-        // Add Volume slider
-        volumeSlider = new Slider();
-        volumeSlider.setPrefWidth(70);
-        volumeSlider.setMaxWidth(Region.USE_PREF_SIZE);
-        volumeSlider.setMinWidth(30);
-        volumeSlider.valueProperty().addListener(new InvalidationListener() {
-            public void invalidated(Observable ov) {
-                if (volumeSlider.isValueChanging()) {
-                    mp.setVolume(volumeSlider.getValue() / 100.0);
-                }
-            }
-        });
-        mediaBar.getChildren().add(volumeSlider);
+		// Ham keo chuot
+		timeSlider.valueProperty().addListener(new InvalidationListener() {
+			public void invalidated(Observable ov) {
+				if (timeSlider.isValueChanging()) {
+					// multiply duration by percentage calculated by slider position
+					mp.seek(duration.multiply(timeSlider.getValue() / 100.0));
+				}
+			}
+		});
+		mediaBar.getChildren().add(timeSlider);
 
-        setBottom(mediaBar);
-        
-        //ViewSub 
-        
-        viewSub = new HBox();
-        viewSub.setAlignment(Pos.TOP_RIGHT);
-        viewSub.setPadding(new Insets(5, 10, 5, 10));
-        BorderPane.setAlignment(viewSub, Pos.TOP_RIGHT);
+		// Add Play label
+		playTime = new Label();
+		playTime.setPrefWidth(130);
+		playTime.setMinWidth(50);
+		mediaBar.getChildren().add(playTime);
 
-        TableColumn timeCol = new TableColumn("Time");
-        timeCol.setMinWidth(10);
-        timeCol.setCellValueFactory(new PropertyValueFactory<Sub, String>("time"));
+		// Add the volume label
+		Label volumeLabel = new Label("Vol: ");
+		mediaBar.getChildren().add(volumeLabel);
 
-        TableColumn subCol = new TableColumn("Sub");
-        subCol.setMinWidth(420);
-        subCol.setCellValueFactory(new PropertyValueFactory<Sub, String>("content"));
+		// Add Volume slider
+		volumeSlider = new Slider();
+		volumeSlider.setPrefWidth(70);
+		volumeSlider.setMaxWidth(Region.USE_PREF_SIZE);
+		volumeSlider.setMinWidth(30);
+		volumeSlider.valueProperty().addListener(new InvalidationListener() {
+			public void invalidated(Observable ov) {
+				if (volumeSlider.isValueChanging()) {
+					mp.setVolume(volumeSlider.getValue() / 100.0);
+				}
+			}
+		});
+		mediaBar.getChildren().add(volumeSlider);
 
-        tableview.getColumns().addAll(timeCol, subCol);
-        //
-        //Xuat du lieu
+		setBottom(mediaBar);
 
-        List<Sub> lsubtime = GetSub.GetListSub(1);
-        List<Sub> lsubtsub = GetSub.GetListSub(1);
-        for (Sub s : lsubtsub) {
-        	try {
-        		System.out.println("Sub :" + s.getContent());
-        		System.out.println("Time :" + s.getTime());
-        		data.add(new Sub(s.getTime(), s.getContent()));
-        	} catch (Exception e) {
-        		System.out.println("Error: " + e.getMessage());
-        	}
-        }
+		// ViewSub
 
-       // tableview.getColumns().addAll(timeCol, subCol);
+		viewSub = new HBox();
+		viewSub.setAlignment(Pos.TOP_RIGHT);
+		viewSub.setPadding(new Insets(5, 10, 5, 10));
+		BorderPane.setAlignment(viewSub, Pos.TOP_RIGHT);
 
-        tableview.getItems().setAll(data);
-        tableview.setOnMousePressed(new EventHandler<MouseEvent>() {
+		TableColumn timeCol = new TableColumn("Time");
+		timeCol.setMinWidth(10);
+		timeCol.setCellValueFactory(new PropertyValueFactory<Sub, String>("time"));
+
+		TableColumn subCol = new TableColumn("Sub");
+		subCol.setMinWidth(420);
+		subCol.setCellValueFactory(new PropertyValueFactory<Sub, String>("content"));
+
+		tableview.getColumns().addAll(timeCol, subCol);
+		//
+		// Xuat du lieu
+
+		List<Sub> lsubtime = GetSub.GetListSub(1);
+		List<Sub> lsubtsub = GetSub.GetListSub(1);
+		for (Sub s : lsubtsub) {
+			try {
+				System.out.println("Sub :" + s.getContent());
+				System.out.println("Time :" + s.getTime());
+				data.add(new Sub(s.getTime(), s.getContent()));
+			} catch (Exception e) {
+				System.out.println("Error: " + e.getMessage());
+			}
+		}
+
+		// tableview.getColumns().addAll(timeCol, subCol);
+
+		tableview.getItems().setAll(data);
+		tableview.setOnMousePressed(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				String timeStart =tableview.getSelectionModel().getSelectedItem().getTime();
-				int t_Start=conVertTimeToInt(timeStart);
-				//int time = Integer.parseInt(timeStart);
+				String timeStart = tableview.getSelectionModel().getSelectedItem().getTime();
+				int t_Start = conVertTimeToInt(timeStart);
+				// int time = Integer.parseInt(timeStart);
 				int index = tableview.getSelectionModel().getSelectedIndex();
-				//String timeStop = tableview.getColumns().get(index+1).getCellObservableValue(0).getValue().toString();
-				System.out.println(t_Start +"   " + index);
-				//mp.pause();
+				// String timeStop =
+				// tableview.getColumns().get(index+1).getCellObservableValue(0).getValue().toString();
+				System.out.println(t_Start + "   " + index);
+				// mp.pause();
 				timeSlider.setValue(t_Start);
 				mp.setStartTime(duration.seconds(t_Start));
-				//mp.play();
+				// mp.play();
 			}
-        	
+
 		});
-        viewSub.getChildren().add(tableview);
-        setRight(viewSub);
+		viewSub.getChildren().add(tableview);
+		setRight(viewSub);
 
-        
-    }
-    
-    
-    protected void updateValues() {
-        if (playTime != null && timeSlider != null && volumeSlider != null) {
-            Platform.runLater(new Runnable() {
-                public void run() {
-                    Duration currentTime = mp.getCurrentTime();
-                    playTime.setText(formatTime(currentTime, duration));
-                    timeSlider.setDisable(duration.isUnknown());
-                    if (!timeSlider.isDisabled()
-                            && duration.greaterThan(Duration.ZERO)
-                            && !timeSlider.isValueChanging()) {
-                        timeSlider.setValue(currentTime.divide(duration).toMillis()
-                                * 100.0);
-                    }
-                    if (!volumeSlider.isValueChanging()) {
-                        volumeSlider.setValue((int) Math.round(mp.getVolume()
-                                * 100));
-                    }
-                }
-            });
-        }
-    }
+	}
 
-    private static String formatTime(Duration elapsed, Duration duration) {
-        int intElapsed = (int) Math.floor(elapsed.toSeconds());
-        int elapsedHours = intElapsed / (60 * 60);
-        if (elapsedHours > 0) {
-            intElapsed -= elapsedHours * 60 * 60;
-        }
-        int elapsedMinutes = intElapsed / 60;
-        int elapsedSeconds = intElapsed - elapsedHours * 60 * 60
-                - elapsedMinutes * 60;
+	protected void updateValues() {
+		if (playTime != null && timeSlider != null && volumeSlider != null) {
+			Platform.runLater(new Runnable() {
+				public void run() {
+					Duration currentTime = mp.getCurrentTime();
+					playTime.setText(formatTime(currentTime, duration));
+					timeSlider.setDisable(duration.isUnknown());
+					if (!timeSlider.isDisabled() && duration.greaterThan(Duration.ZERO)
+							&& !timeSlider.isValueChanging()) {
+						timeSlider.setValue(currentTime.divide(duration).toMillis() * 100.0);
+					}
+					if (!volumeSlider.isValueChanging()) {
+						volumeSlider.setValue((int) Math.round(mp.getVolume() * 100));
+					}
+				}
+			});
+		}
+	}
 
-        if (duration.greaterThan(Duration.ZERO)) {
-            int intDuration = (int) Math.floor(duration.toSeconds());
-            int durationHours = intDuration / (60 * 60);
-            if (durationHours > 0) {
-                intDuration -= durationHours * 60 * 60;
-            }
-            int durationMinutes = intDuration / 60;
-            int durationSeconds = intDuration - durationHours * 60 * 60
-                    - durationMinutes * 60;
-            if (durationHours > 0) {
-                return String.format("%d:%02d:%02d/%d:%02d:%02d",
-                        elapsedHours, elapsedMinutes, elapsedSeconds,
-                        durationHours, durationMinutes, durationSeconds);
-            } else {
-                return String.format("%02d:%02d/%02d:%02d",
-                        elapsedMinutes, elapsedSeconds, durationMinutes,
-                        durationSeconds);
-            }
-        } else {
-            if (elapsedHours > 0) {
-                return String.format("%d:%02d:%02d", elapsedHours,
-                        elapsedMinutes, elapsedSeconds);
-            } else {
-                return String.format("%02d:%02d", elapsedMinutes,
-                        elapsedSeconds);
-            }
-        }
-    }
-    public int conVertTimeToInt(String time )
-    {
-    	int timeAfterConvert=0;
-    	char t;
-    	int v;
-    	//chuc phut
-    	t=time.charAt(0);
-    	if(t!='0')
-    	{
-    		v= t-'0';
-    		timeAfterConvert=t*10;
-    	}
-    	//phut don vi
-    	t=time.charAt(1);
-    	if(t!='0')
-    	{
-    		v= t-'0';
-    		timeAfterConvert=timeAfterConvert+v;
-    	}
-    	//giay chuc
-    	t=time.charAt(3);
-    	if(t!='0')
-    	{
-    		v= t-'0';
-    		timeAfterConvert=timeAfterConvert*60+v*10;
-    	}
-    	//giay don vi
-    	t=time.charAt(4);
-    	if(t!='0')
-    	{
-    		v= t-'0';
-    		timeAfterConvert=timeAfterConvert+v;;
-    	}
-    	return timeAfterConvert;
-    }
+	private static String formatTime(Duration elapsed, Duration duration) {
+		int intElapsed = (int) Math.floor(elapsed.toSeconds());
+		int elapsedHours = intElapsed / (60 * 60);
+		if (elapsedHours > 0) {
+			intElapsed -= elapsedHours * 60 * 60;
+		}
+		int elapsedMinutes = intElapsed / 60;
+		int elapsedSeconds = intElapsed - elapsedHours * 60 * 60 - elapsedMinutes * 60;
+
+		if (duration.greaterThan(Duration.ZERO)) {
+			int intDuration = (int) Math.floor(duration.toSeconds());
+			int durationHours = intDuration / (60 * 60);
+			if (durationHours > 0) {
+				intDuration -= durationHours * 60 * 60;
+			}
+			int durationMinutes = intDuration / 60;
+			int durationSeconds = intDuration - durationHours * 60 * 60 - durationMinutes * 60;
+			if (durationHours > 0) {
+				return String.format("%d:%02d:%02d/%d:%02d:%02d", elapsedHours, elapsedMinutes, elapsedSeconds,
+						durationHours, durationMinutes, durationSeconds);
+			} else {
+				return String.format("%02d:%02d/%02d:%02d", elapsedMinutes, elapsedSeconds, durationMinutes,
+						durationSeconds);
+			}
+		} else {
+			if (elapsedHours > 0) {
+				return String.format("%d:%02d:%02d", elapsedHours, elapsedMinutes, elapsedSeconds);
+			} else {
+				return String.format("%02d:%02d", elapsedMinutes, elapsedSeconds);
+			}
+		}
+	}
+
+	public int conVertTimeToInt(String time) {
+		int timeAfterConvert = 0;
+		char t;
+		int v;
+		// chuc phut
+		t = time.charAt(0);
+		if (t != '0') {
+			v = t - '0';
+			timeAfterConvert = t * 10;
+		}
+		// phut don vi
+		t = time.charAt(1);
+		if (t != '0') {
+			v = t - '0';
+			timeAfterConvert = timeAfterConvert + v;
+		}
+		// giay chuc
+		t = time.charAt(3);
+		if (t != '0') {
+			v = t - '0';
+			timeAfterConvert = timeAfterConvert * 60 + v * 10;
+		}
+		// giay don vi
+		t = time.charAt(4);
+		if (t != '0') {
+			v = t - '0';
+			timeAfterConvert = timeAfterConvert + v;
+			;
+		}
+		return timeAfterConvert;
+	}
 }
