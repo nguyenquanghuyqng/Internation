@@ -109,9 +109,6 @@ public class ListVideoController implements Initializable {
 			public void handle(MouseEvent event) {
 				Parent root;
 				try {
-					
-				
-					
 //					Container.getInstance().x = id;
 					root = FXMLLoader.load(getClass().getResource("/internation/Main.fxml"));
 					pnParent.getChildren().add(root);

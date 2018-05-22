@@ -29,13 +29,18 @@
       <Pane layoutX="11.0" layoutY="400.0" prefHeight="53.0" prefWidth="606.0" style="-fx-background-color: silver;">
          <children>
             <Button id="btnPlay" fx:id="playButton" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="32.0" />
-            <Label id="lbTime" fx:id="playTime" layoutX="55.0" layoutY="23.0" text="00:00/00:00" />
+            <Label id="lbTime" fx:id="playTime" layoutX="55.0" layoutY="17.0" text="00:00/00:00" />
             <Label fx:id="lblid" layoutX="150.0" layoutY="23.0" />
             <Label fx:id="lblNameVideo" layoutX="159.0" layoutY="11.0" prefHeight="28.0" prefWidth="447.0" textFill="#ff4221">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
+            <Button fx:id="btnBackListVideo" layoutX="484.0" layoutY="12.0" mnemonicParsing="false" text="Back List Video" textFill="#e82424">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
       <Slider id="slTime" fx:id="timeSlider" layoutX="8.0" layoutY="375.0" prefHeight="14.0" prefWidth="606.0" />

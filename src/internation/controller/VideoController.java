@@ -1,6 +1,7 @@
 package internation.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -16,9 +17,13 @@ import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -33,6 +38,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 //import internation.model.Review;
 
@@ -41,7 +47,8 @@ public class VideoController implements Initializable {
 	private Label lblid;
 	@FXML
 	private MediaView mediaView;
-
+	@FXML
+	private Button btnBackListVideo;
 	@FXML
 	private Label playTime;
 	@FXML
@@ -203,9 +210,9 @@ public class VideoController implements Initializable {
 		List<Sub> lsubtsub = GetSub.GetListSub(key);
 		for (Sub s : lsubtsub) {
 			try {
-		 
+
 				data1.add(new Sub(s.getTime(), s.getContent()));
-			 
+
 			} catch (Exception e) {
 				System.out.println("Error: " + e.getMessage());
 			}
@@ -225,16 +232,16 @@ public class VideoController implements Initializable {
 
 					review.setContent(content);
 					//
-					review.setSub_id(2);
-					review.setVideo_id(1);
+					review.setSub_id(key);
+					review.setVideo_id(key);
 					SetReview.insertReview(review);
 					System.out.println(review.getContent() + "," + review.getVideo_id());
 
-					// Thong bao
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Help");
-					// alert.setHeaderText("Hướng dẫn học thao tac chuột trên video");
-					alert.setContentText("Đã lưu câu được chọn");
+					// // Thong bao
+					// Alert alert = new Alert(AlertType.INFORMATION);
+					// alert.setTitle("Help");
+					// // alert.setHeaderText("Hướng dẫn học thao tac chuột trên video");
+					// alert.setContentText("Đã lưu câu được chọn");
 
 				} else {
 					// TODO Auto-generated method stub
@@ -256,6 +263,37 @@ public class VideoController implements Initializable {
 
 		});
 
+		btnBackListVideo.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+
+				try {
+					
+					Stage stage1 = (Stage) btnBackListVideo.getScene().getWindow();
+				    stopRequested = true;
+				    atEndOfMedia = true;
+				    stage1.close();
+					
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/internation/Control.fxml"));
+					System.out.println("back List Video");
+					Stage stage = new Stage();
+					stage.initOwner(btnBackListVideo.getScene().getWindow());
+					stage.setScene(new Scene((Parent) loader.load()));
+					stage.showAndWait();
+					
+				    stopRequested = true;
+				    atEndOfMedia = true;
+					 
+//					ControlController controller = loader.getController();
+//					btnBackListVideo.getScene().getWindow().hide();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		});
 	}
 
 	protected void updateValues() {
@@ -274,7 +312,6 @@ public class VideoController implements Initializable {
 		}
 	}
 
-	// huy oc cho
 	private static String formatTime(Duration elapsed, Duration duration) {
 		int intElapsed = (int) Math.floor(elapsed.toSeconds());
 		int elapsedHours = intElapsed / (60 * 60);

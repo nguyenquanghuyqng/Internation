@@ -150,8 +150,11 @@ int b= 0;
 		flag.setfReview(true);
 		if (flag.isfStudyVideo() == true) {
 			try {
-				Parent root = FXMLLoader.load(getClass().getResource("/internation/ListVideo.fxml"));
-				pnVideo.setContent(root);
+				if(pnVideo.getContent()==null) {
+					Parent root = FXMLLoader.load(getClass().getResource("/internation/ListVideo.fxml"));
+					pnVideo.setContent(root);
+				}
+				
 
 			} catch (Exception e) {
 				e.printStackTrace();
