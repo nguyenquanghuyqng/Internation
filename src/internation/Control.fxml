@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TabPane prefHeight="500.0" prefWidth="1100.0" style="-fx-background-color: #CCFF99;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="internation.controller.ControlController">
+<TabPane fx:id="tabPanelControl" prefHeight="500.0" prefWidth="1100.0" style="-fx-background-color: #CCFF99;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="internation.controller.ControlController">
   <tabs>
     <Tab fx:id="pnBasic" onSelectionChanged="#BasicLoad" text="Basic">
     <content>
@@ -78,6 +78,45 @@
                </children>
             </Pane>
          </content></Tab>
-    
+    <Tab fx:id="pnBrowser" onSelectionChanged="#BrowserLoad" text="Browser">
+    <content>
+            <Pane>
+               <children>
+                  <Button fx:id="btnBrowseVideo1" layoutX="38.0" layoutY="71.0" mnemonicParsing="false" text="Browse video" textFill="#ff4221" />
+                  <Text fx:id="txtVideo1" layoutX="134.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="423.826171875">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#ff4221" layoutX="38.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You can select video from your PC ">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="btnInsert1" layoutX="40.0" layoutY="176.0" mnemonicParsing="false" text="Start study your video" textFill="#ff4221">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Button>
+                  <Text fx:id="txtResult1" layoutX="38.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="btnBrowseSub1" layoutX="40.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Browse sub " textFill="#ff381e" />
+                  <Text fx:id="txtSub1" layoutX="134.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="423.826171875">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="452.0" fitWidth="885.0" layoutX="409.0" pickOnBounds="true" preserveRatio="true">
+                  
+                  		<image>
+				             <Image url="@../Images/english.png" /> 
+				         </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </content>
+    </Tab>
   </tabs>
 </TabPane>

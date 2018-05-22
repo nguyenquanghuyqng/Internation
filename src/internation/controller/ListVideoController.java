@@ -7,22 +7,16 @@ import java.util.ResourceBundle;
 
 import internation.dao.GetListVideo;
 import internation.model.ItemVideo;
-import internation.model.Review;
 import internation.model.Video;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -33,7 +27,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class ListVideoController implements Initializable {
@@ -75,7 +68,7 @@ public class ListVideoController implements Initializable {
 						if (item != null) {
 							System.out.println(item.getImage());
 
-							javafx.scene.image.Image img = new javafx.scene.image.Image(item.getImage());
+							Image img = new Image(item.getImage());
 							ImageView imageView = new ImageView(img);
 							setGraphic(imageView);
 
@@ -85,7 +78,7 @@ public class ListVideoController implements Initializable {
 
 							hBox.setSpacing(10);
 							setGraphic(hBox);
-
+//
 						}
 					}
 				};
@@ -110,6 +103,7 @@ public class ListVideoController implements Initializable {
 				Parent root;
 				try {
 //					Container.getInstance().x = id;
+					Container.getInstance().flag=true;
 					root = FXMLLoader.load(getClass().getResource("/internation/Main.fxml"));
 					pnParent.getChildren().add(root);
 

@@ -1,6 +1,8 @@
 package internation.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -74,8 +76,251 @@ public class VideoController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+///////////////////////////////////////////////////////////
+		boolean flag = Container.getInstance().flag;
+		String link;
+		String sub;
+		int key;
+		String sCurrentLine="";
+		if(flag==true)
+		{
+			key = Container.getInstance().x;
 
-		int key = Container.getInstance().x;
+			System.out.println("Huy id" + key);
+			// Review review = new Review();
+
+			// int key = review.getVideo_id();
+
+			// System.out.println("Key :"+review.getVideo_id());
+
+			link = GetListVideo.GetPathVideo(key);
+			System.out.println("Link " + link);
+
+			TableColumn timeCol = new TableColumn("Time");
+			timeCol.setMinWidth(10);
+			timeCol.setCellValueFactory(new PropertyValueFactory<Sub, String>("time"));
+
+			TableColumn subCol = new TableColumn("Sub");
+			subCol.setMinWidth(420);
+			subCol.setCellValueFactory(new PropertyValueFactory<Sub, String>("content"));
+
+			tableview.getColumns().addAll(timeCol, subCol);
+			//
+			// Xuat du lieu
+
+			List<Sub> lsubtsub = GetSub.GetListSub(key);
+			for (Sub s : lsubtsub) {
+				try {
+
+					data1.add(new Sub(s.getTime(), s.getContent()));
+
+				} catch (Exception e) {
+					System.out.println("Error: " + e.getMessage());
+				}
+			}
+
+			tableview.getItems().setAll(data1);
+
+			tableview.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent event) {
+					if (event.getButton() == MouseButton.SECONDARY) {
+						Review review = new Review();
+						System.out.print("chuot phai");
+						String content = tableview.getSelectionModel().getSelectedItem().getContent();
+						System.out.println(content);
+
+						review.setContent(content);
+						//
+						review.setSub_id(2);
+						review.setVideo_id(1);
+						SetReview.insertReview(review);
+						System.out.println(review.getContent() + "," + review.getVideo_id());
+
+						// Thong bao
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Help");
+						// alert.setHeaderText("HÆ°á»›ng dáº«n há»�c thao tac chuá»™t trĂªn video");
+						alert.setContentText("Ä�Ă£ lÆ°u cĂ¢u Ä‘Æ°á»£c chá»�n");
+
+					} else {
+						// TODO Auto-generated method stub
+						String timeStart = tableview.getSelectionModel().getSelectedItem().getTime();
+						int t_Start = conVertTimeToInt(timeStart);
+						// int time = Integer.parseInt(timeStart);
+						int index = tableview.getSelectionModel().getSelectedIndex();
+						// String timeStop =
+						// tableview.getColumns().get(index+1).getCellObservableValue(0).getValue().toString();
+						System.out.println(t_Start + "   " + index);
+						// gan lai gia tri cho slide --> tu slider thong qua updateValue de xet thoi
+						// gian video
+						timeSlider.setValue(t_Start / 2);
+						updateValues();
+						mp.seek(duration.multiply(timeSlider.getValue() / 100.0));
+					}
+					;
+				}
+
+			});
+		}
+		else
+		{
+			link = Container.getInstance().video;
+			sub = Container.getInstance().sub;
+			BufferedReader br = null;
+			FileReader fr = null;
+
+			//Lay sub
+			try {
+
+				//br = new BufferedReader(new FileReader(FILENAME));
+				fr = new FileReader(sub);
+				br = new BufferedReader(fr);
+
+
+
+				while ((sCurrentLine = br.readLine()) != null) {
+					System.out.println(sCurrentLine);
+				}
+
+			} catch (IOException e) {
+
+				e.printStackTrace();
+
+			} finally {
+
+				try {
+
+					if (br != null)
+						br.close();
+
+					if (fr != null)
+						fr.close();
+
+				} catch (IOException ex) {
+
+					ex.printStackTrace();
+
+				}
+
+			}
+			//Ket thuc lay sub
+
+			//dua sub vao table
+
+			/*List<Sub> listsub = new ArrayList<Sub>();
+			Sub sub1 = new Sub();
+			String time=null;
+			String content=null;
+			int start=0;
+			int end;
+			int flagchuoi;
+			int t=1;
+			for (int i=0 ; i<sCurrentLine.length() ; i++)
+			{
+				if(sCurrentLine.charAt(i)=='(')
+				{
+					start=i+1;
+				}
+				else
+				{
+					if(sCurrentLine.charAt(i)==')')
+					{
+						end=i;
+						if(t==1)
+						{
+							int count = end-start;
+							time=sCurrentLine.substring(start, count);
+							t=2;
+						}
+						else
+						{
+							if(t==2)
+							{
+								int count = end-start;
+								content=sCurrentLine.substring(start, count);
+								t=1;
+								sub1.setTime(time);
+								sub1.setContent(content);
+								listsub.add(sub1);
+							}
+						}
+					}
+				}
+			}*/
+			/*TableColumn timeCol = new TableColumn("Time");
+			timeCol.setMinWidth(10);
+			timeCol.setCellValueFactory(new PropertyValueFactory<Sub, String>("time"));
+
+			TableColumn subCol = new TableColumn("Sub");
+			subCol.setMinWidth(420);
+			subCol.setCellValueFactory(new PropertyValueFactory<Sub, String>("content"));
+
+			tableview.getColumns().addAll(timeCol, subCol);*/
+			//
+			// Xuat du lieu
+
+			/*for (Sub s : listsub) {
+				try {
+
+					//data1.add(new Sub(s.getTime(), s.getContent()));
+
+					System.out.println(s.getContent());
+				} catch (Exception e) {
+					System.out.println("Error: " + e.getMessage());
+				}
+			}*/
+
+			/*tableview.getItems().setAll(data1);
+
+			tableview.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent event) {
+					if (event.getButton() == MouseButton.SECONDARY) {
+						Review review = new Review();
+						System.out.print("chuot phai");
+						String content = tableview.getSelectionModel().getSelectedItem().getContent();
+						System.out.println(content);
+
+						review.setContent(content);
+						//
+						review.setSub_id(2);
+						review.setVideo_id(1);
+						SetReview.insertReview(review);
+						System.out.println(review.getContent() + "," + review.getVideo_id());
+
+						// Thong bao
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Help");
+						// alert.setHeaderText("HÆ°á»›ng dáº«n há»�c thao tac chuá»™t trĂªn video");
+						alert.setContentText("Ä�Ă£ lÆ°u cĂ¢u Ä‘Æ°á»£c chá»�n");
+
+					} else {
+						// TODO Auto-generated method stub
+						String timeStart = tableview.getSelectionModel().getSelectedItem().getTime();
+						int t_Start = conVertTimeToInt(timeStart);
+						// int time = Integer.parseInt(timeStart);
+						int index = tableview.getSelectionModel().getSelectedIndex();
+						// String timeStop =
+						// tableview.getColumns().get(index+1).getCellObservableValue(0).getValue().toString();
+						System.out.println(t_Start + "   " + index);
+						// gan lai gia tri cho slide --> tu slider thong qua updateValue de xet thoi
+						// gian video
+						timeSlider.setValue(t_Start / 2);
+						updateValues();
+						mp.seek(duration.multiply(timeSlider.getValue() / 100.0));
+					}
+					;
+				}
+
+			});*/
+			//ket thuc dua sub vao table
+
+		}
+		////////////////////////////////////////////////
+		/*int key = Container.getInstance().x;
 
 		System.out.println("Huy id" + key);
 		// Review review = new Review();
@@ -86,8 +331,8 @@ public class VideoController implements Initializable {
 
 		String link = GetListVideo.GetPathVideo(key);
 		System.out.println("Link " + link);
-
-		// Lấy file path của video
+*/
+		// Láº¥y file path cá»§a video
 		// String path = new File("src/media/Huy.mp4").getAbsolutePath();
 		String path = new File(link).getAbsolutePath();
 		me = new Media(new File(path).toURI().toString());
@@ -99,9 +344,9 @@ public class VideoController implements Initializable {
 		// Thong bao
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Help");
-		alert.setHeaderText("Hướng dẫn học thao tac chuột trên video");
+		alert.setHeaderText("HÆ°á»›ng dáº«n há»�c thao tac chuá»™t trĂªn video");
 		alert.setContentText(
-				"Để tua nhanh video bạn dùng chuột kéo thanh slider phái dưới màn hình video \n Click chuột phải để tua video lại thời điểm bạn cần nghe \n Click chuột phải để lưu câu đó");
+				"Ä�á»ƒ tua nhanh video báº¡n dĂ¹ng chuá»™t kĂ©o thanh slider phĂ¡i dÆ°á»›i mĂ n hĂ¬nh video \n Click chuá»™t pháº£i Ä‘á»ƒ tua video láº¡i thá»�i Ä‘iá»ƒm báº¡n cáº§n nghe \n Click chuá»™t pháº£i Ä‘á»ƒ lÆ°u cĂ¢u Ä‘Ă³");
 
 		playButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -129,7 +374,7 @@ public class VideoController implements Initializable {
 			}
 		});
 
-		// Su kiện slider di chuyển khi chạy video
+		// Su kiá»‡n slider di chuyá»ƒn khi cháº¡y video
 		mp.currentTimeProperty().addListener(new InvalidationListener() {
 			public void invalidated(Observable ov) {
 				updateValues();
@@ -195,7 +440,7 @@ public class VideoController implements Initializable {
 		 * mp.setVolume(volumeSlider.getValue() / 100.0); } } });
 		 */
 
-		TableColumn timeCol = new TableColumn("Time");
+		/*TableColumn timeCol = new TableColumn("Time");
 		timeCol.setMinWidth(10);
 		timeCol.setCellValueFactory(new PropertyValueFactory<Sub, String>("time"));
 
@@ -240,8 +485,8 @@ public class VideoController implements Initializable {
 					// // Thong bao
 					// Alert alert = new Alert(AlertType.INFORMATION);
 					// alert.setTitle("Help");
-					// // alert.setHeaderText("Hướng dẫn học thao tac chuột trên video");
-					// alert.setContentText("Đã lưu câu được chọn");
+					// // alert.setHeaderText("HÆ°á»›ng dáº«n há»�c thao tac chuá»™t trĂªn video");
+					// alert.setContentText("Ä�Ă£ lÆ°u cĂ¢u Ä‘Æ°á»£c chá»�n");
 
 				} else {
 					// TODO Auto-generated method stub
@@ -261,7 +506,7 @@ public class VideoController implements Initializable {
 				;
 			}
 
-		});
+		});*/
 
 		btnBackListVideo.setOnMouseClicked(new EventHandler<Event>() {
 
@@ -274,6 +519,7 @@ public class VideoController implements Initializable {
 				    stopRequested = true;
 				    atEndOfMedia = true;
 				    stage1.close();
+				    mp.stop();
 					
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("/internation/Control.fxml"));
 					System.out.println("back List Video");
