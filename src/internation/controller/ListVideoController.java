@@ -9,6 +9,8 @@ import internation.dao.GetListVideo;
 import internation.model.ItemVideo;
 import internation.model.Review;
 import internation.model.Video;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,8 +20,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -37,7 +43,8 @@ public class ListVideoController implements Initializable {
 	private Pane pnParent;
 	private final ObservableList<ItemVideo> data = FXCollections.observableArrayList();
 
-	int id=1;
+	int id = 1;
+
 	@FXML
 	public void handleMouseClick(MouseEvent arg0) {
 		// System.out.println("clicked on " +
@@ -86,15 +93,29 @@ public class ListVideoController implements Initializable {
 		});
 
 		listView.setItems(data);
-
+		listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		
+		listView.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				// TODO Auto-generated method stub
+				System.out.println("OLD Index: " + oldValue + ",  NEW Index: " + newValue);
+				Container.getInstance().x  = (int) (newValue) +1;
+			}
+		});
+		
 		listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				Parent root;
 				try {
-					Container.getInstance().x = id;
+					
+				
+					
+//					Container.getInstance().x = id;
 					root = FXMLLoader.load(getClass().getResource("/internation/Main.fxml"));
 					pnParent.getChildren().add(root);
+
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
